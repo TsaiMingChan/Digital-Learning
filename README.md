@@ -1,2 +1,1 @@
-# Digital-Learning
-Self-Learning 
+# Digital System Design Self-Learning
