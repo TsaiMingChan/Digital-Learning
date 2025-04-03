@@ -18,7 +18,12 @@ module _4bit_CLA(A, B, Cin, S, Cout);
   assign P = A ^ B;
   
   assign Cinterval[0] = G[0] | (P[0] & Cin);
-  assign Cinterval[1] = G[1] | (P[1] & Cinterval);
-  assign Cinterval[2] = G[2] | (P[2] & Cinterval);
-  assign Cinterval[3] = G[3] | (P[3] & Cinterval);
-    
+  assign Cinterval[1] = G[1] | (P[1] & Cinterval[0]);
+  assign Cinterval[2] = G[2] | (P[2] & Cinterval[1]);
+  assign Cinterval[3] = G[3] | (P[3] & Cinterval[2]);
+
+  assign Cout = Cinterval[3];
+
+  assign S = P ^ {Cinterval[2:0], Cin};
+
+endmodule
