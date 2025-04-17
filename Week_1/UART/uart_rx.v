@@ -1,7 +1,7 @@
 module uart_rx
 (
     input            clk,
-    input            rst,
+    input            rst_n,
     input            rx,
     output reg [7:0] data,
     output reg       valid
@@ -23,8 +23,8 @@ module uart_rx
     parameter DONE  = 3'b111;
 
     // Double-register the incoming data. (For metastability)
-    always @(posedge clk or posedge rst) begin
-        if(rst) begin
+    always @(posedge clk or negedge rst) begin
+        if(!rst_n) begin
             rx_1 <= 1;
             rx_2 <= 1;
         end
@@ -35,13 +35,13 @@ module uart_rx
     end
 
     // Finite State Machine
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst) begin
+        if (!rst_n) begin
             state    <= IDLE;
             clk_cnt  <= 0;
             bit_cnt  <= 0;
             data_buf <= 0;
-            data     <= 0;
+            data     <= 0; 
             valid    <= 0;
         end 
         else begin
