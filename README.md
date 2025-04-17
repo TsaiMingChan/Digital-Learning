@@ -1,4 +1,4 @@
-# Digital System Design Self-Learning
+# Digital System Design Learning
 
 ## Reference
 * CMOS VLSI Design A Circuits and Systems Perspective
